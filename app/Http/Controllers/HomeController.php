@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Aluno;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $alunos = ALuno::all();
-        return view('home', compact('alunos'));
+        
+        return view('home');
+    }
+
+    public function cerelIndex()
+    {
+        if(auth()->user()->perfil == 1 || auth()->user()->perfil == 3){
+            $alunos = ALuno::all();
+            return View('cerel.home', compact('alunos'));
+        }else{
+            return redirect('home');
+        }
+        
+    }
+
+    public function coordsIndex()
+    {
+        if(auth()->user()->perfil == 2 || auth()->user()->perfil == 3){
+            $alunos = ALuno::all();
+            return View('coords.home', compact('alunos'));
+        }else{
+            return redirect('home');
+        }
+        
     }
 }
