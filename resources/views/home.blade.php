@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    @include('layouts.errors')
+    {{--  @include('layouts.errors')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  --}}
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
