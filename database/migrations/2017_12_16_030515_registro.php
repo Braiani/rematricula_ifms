@@ -17,6 +17,7 @@ class Registro extends Migration
             $table->increments('id');
             $table->integer('id_disciplina_curso')->index();
             $table->integer('id_alunos')->index();
+            $table->string('semestre');
             $table->timestamps();
         });
     }
