@@ -15,10 +15,12 @@ class DisciplinaCurso extends Migration
     {
         Schema::create('disciplina_curso', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_cursos')->index();
+            $table->integer('id_cursos')->unsigned();
             $table->string('nome');
-            $table->integer('cargaHoraria');
+            $table->integer('cargaHoraria')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_cursos')->references('id')->on('cursos')->onDelete('cascade');
         });
     }
 

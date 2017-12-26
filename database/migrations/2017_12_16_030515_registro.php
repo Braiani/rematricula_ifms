@@ -15,10 +15,13 @@ class Registro extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_disciplina_curso')->index();
-            $table->integer('id_alunos')->index();
+            $table->integer('id_disciplina_curso')->unsigned();
+            $table->integer('id_alunos')->unsigned();
             $table->string('semestre');
             $table->timestamps();
+
+            $table->foreign('id_disciplina_curso')->references('id')->on('disciplina_curso')->onDelete('cascade');
+            $table->foreign('id_alunos')->references('id')->on('alunos')->onDelete('cascade');
         });
     }
 

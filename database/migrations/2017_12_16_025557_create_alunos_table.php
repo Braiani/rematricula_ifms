@@ -14,12 +14,14 @@ class CreateAlunosTable extends Migration
     public function up()
     {
         Schema::create('alunos', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->string('nome');
-            $table->string('matricula')->primary();
-            $table->string('curso');
+            $table->string('matricula')->unique();
+            $table->integer('id_curso')->unsigned();
             $table->integer('ra');
             $table->timestamps();
+
+            $table->foreign('id_curso')->references('id')->on('cursos')->onDelete('cascade');
         });
     }
 
