@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="{{asset('css/custom.css') }}">
 @stop
 
-@section('title', 'Dashboard')
+@section('title', 'RematrículaIF')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Perfil</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+<p>Terá um conteúdo para alterar informações de perfil aqui!</p>
 @stop
