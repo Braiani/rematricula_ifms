@@ -23,5 +23,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/cerel', 'HomeController@cerelIndex');
-Route::get('/coords', 'HomeController@coordsIndex');
+Route::resource('cerel', 'CerelController')->middleware('auth');
+Route::resource('coords', 'CoordsController')->middleware('auth');
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::resource('profile', 'ProfileController')->middleware('auth');
+});
+
+// Route::get('/cerel', 'HomeController@cerelIndex');
+// Route::get('/coords', 'HomeController@coordsIndex');
