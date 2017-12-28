@@ -7,6 +7,7 @@ use App\Aluno;
 use App\DisciplinaCurso;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 class CerelController extends Controller
@@ -71,7 +72,9 @@ class CerelController extends Controller
      */
     public function show($id)
     {
-        return view('cerel.comprovante');
+        $data = Aluno::find($id);
+        return PDF::loadView('cerel.comprovante', ['alunos' => $data])->stream();
+        //return view('cerel.comprovante', ['alunos' => $data]);
     }
 
     /**
@@ -82,7 +85,7 @@ class CerelController extends Controller
      */
     public function edit($id)
     {
-        return view('cerel.edit');
+        return view('cerel.mostrar');
     }
 
     /**

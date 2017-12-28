@@ -11,14 +11,10 @@
 @stop
 
 @section('content')
+@include('layouts.errors')
 @include('layouts.sucesso_session')
 <div class="row">
     <div class="col-sm-10 col-md-8">
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
         <h3>Por favor, Selecione o estudante abaixo.</h3>
         <div class="form-group">
             <select id="aluno" name="aluno" class="form-control select">

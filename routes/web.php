@@ -28,6 +28,7 @@ Route::group(['prefix' => 'cerel', 'middleware' => 'auth'], function(){
     Route::get('/{id}', 'CerelController@create');
     Route::post('/', 'CerelController@store');
     Route::get('/comprovante/{id}', 'CerelController@show');
+    Route::get('/registrado/{id}', 'CerelController@edit');
 });
 // Route::resource('cerel', 'CerelController')->middleware('auth');
 Route::resource('coords', 'CoordsController')->middleware('auth');

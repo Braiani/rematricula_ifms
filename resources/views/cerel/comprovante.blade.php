@@ -1,17 +1,107 @@
-@extends('adminlte::page')
-
-@section('css')
-    <link rel="stylesheet" href="{{asset('css/custom.css') }}">
-@stop
-
-@section('title', 'Dashboard')
-
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
-
-@section('content')
-@include('layouts.errors')
-@include('layouts.sucesso_session')
-    <p>Aqui será gerado o comprovante de registro de matrícula. (Em PDF)</p>
-@stop
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Registro de pré-matricula</title>
+        <style>
+            body{
+                width: 740px;
+                height: 1000px;
+            }
+            .img-header{
+                width: 100%;
+            }
+            .first-paragraph{
+                padding-top: 15px;
+            }
+            .disciplinas{
+                margin-top: 5px;
+            }
+            .second-paragraph{
+                padding-top: 15px;
+            }
+            .data-local{
+                margin-top: 50px;
+            }
+            .data-local  p{
+                padding-left: 65%;
+            }
+            .footer{
+                padding-top: 80px;
+                width: 100%;
+            }
+            .assinaturas-left{
+                width: 49%;
+                float: left;
+            }
+            .assinaturas-right{
+                width: 49%;
+                float: right;
+            }
+            .nome-servidor{
+                width: 80%;
+                border-top: 1px solid black;
+                padding-left: 15px;
+            }
+            .nome-responsavel{
+                width: 80%;
+                border-top: 1px solid black;
+                padding-left: 15px;
+            }
+            .rodape{
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+            }
+            .img-rodape{
+                width: 100% !important;
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <img class='img-header' src="{{asset('img/header.jpg') }}">
+            <h2>REGISTRO DE PRÉ-MATRÍCULA</h2>
+        </center>
+        <div class='first-paragraph'>
+            <p>O registro de intenção de matrícula do(a) estudante {{$alunos->nome}} foi realizado com sucesso, conforme informações abaixo:</p>
+        </div>
+        <div class="disciplinas">
+            <ul>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                <li>Disciplinas selecionadas como intenção</li>
+                
+            </ul>
+            
+        </div>
+        <div class="second-paragraph">
+            <p>O responsável está ciente que deverá comparecer nesta instituição, no período de 05/02/2018 a 09/02/2018, para confirmação da matrícula do estudante e em caso de não comparecimento, a presente pré-matrícula será cancelada automaticamente.</p>
+        </div>
+        <div class="data-local">
+            <p>Campo Grande, MS - {{ date( 'd/m/Y' , strtotime(now()))}}.
+        </div>
+        <div class="footer">
+            <div class="assinaturas-left">
+                <p class="nome-servidor">{{auth()->user()->nome}}</p>
+            </div>
+            <div class="assinaturas-right">
+                <p class="nome-responsavel">Assinatura do Responsável</p>
+            </div>
+        </div>
+        <div class="rodape">
+            <img class="img-rodape" src="{{asset('img/footer.jpg') }}">
+        </div>
+    </body>
+</html>
