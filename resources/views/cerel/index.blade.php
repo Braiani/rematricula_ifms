@@ -1,11 +1,50 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('css')
+    <link rel="stylesheet" href="{{asset('css/custom.css') }}">
+@stop
+
+@section('title', 'RemarículaIF - CEREL')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Registro de Intenção</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+@include('layouts.sucesso_session')
+<div class="row">
+    <div class="col-sm-10 col-md-8">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+        <h3>Por favor, Selecione o estudante abaixo.</h3>
+        <div class="form-group">
+            <select id="aluno" name="aluno" class="form-control select">
+                <option value=''>-- Selecione o aluno --</option>
+                @foreach ($alunos as $aluno)
+                    <option value="{{$aluno->id}}">{{$aluno->nome}} - {{$aluno->curso}} - {{$aluno->matricula}}</option>
+                @endforeach
+            </select>
+        </div>
+        <a class="btn btn-primary btn-lg" id="btnRegistro" href="javascrip:void(0);">Registrar</a>
+    </div>
+</div>
 @stop
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.select').select2();
+            $('#aluno').on('change', function(){
+                //alert($(this).val());
+                if($(this).val() !== ""){
+                    $('#btnRegistro').attr('href', '/cerel/' + $(this).val());
+                }else{                    
+                    $('#btnRegistro').attr('href', 'javascrip:void(0);');
+                }
+            });
+        });
+    </script>
+@endsection

@@ -11,5 +11,7 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+@include('layouts.errors')
+@include('layouts.sucesso_session')
+    <p>Aqui será gerado o comprovante de registro de matrícula. (Em PDF)</p>
 @stop
