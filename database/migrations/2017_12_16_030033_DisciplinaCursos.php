@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DisciplinaCurso extends Migration
+class DisciplinaCursos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class DisciplinaCurso extends Migration
      */
     public function up()
     {
-        Schema::create('disciplina_curso', function (Blueprint $table) {
+        Schema::create('disciplina_cursos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_cursos')->unsigned();
             $table->string('nome');
-            $table->integer('cargaHoraria')->nullable();
+            $table->integer('semestre')->nullable();
             $table->timestamps();
 
             $table->foreign('id_cursos')->references('id')->on('cursos')->onDelete('cascade');
@@ -31,6 +31,6 @@ class DisciplinaCurso extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('disciplina_curso');
+        Schema::dropIfExists('disciplina_cursos');
     }
 }
