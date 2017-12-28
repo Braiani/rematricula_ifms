@@ -13,10 +13,13 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         DB::table('users')->insert([
-            'nome' => "Felipe Braiani",
+            'nome' => "Felipe Gustavo Braiani Santos",
             'siape' => 2310754,
             'password' => bcrypt('2310754'),
             'perfil' => '3'
         ]);
+        DB::table('cursos')->insert(['nome' => "Técnico em Mecânica"]);
+        DB::table('cursos')->insert(['nome' => "Técnico em Informática"]);
+        DB::table('cursos')->insert(['nome' => "Técnico em Eletrotécnica"]);
     }
 }

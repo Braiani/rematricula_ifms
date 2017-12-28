@@ -18,6 +18,7 @@ class Registro extends Migration
             $table->integer('id_disciplina_cursos')->unsigned();
             $table->integer('id_alunos')->unsigned();
             $table->string('semestre');
+            $table->integer('situacao')->unsigned();
             $table->integer('id_user')->unsigned();
             $table->timestamps();
 
