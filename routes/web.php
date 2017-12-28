@@ -23,7 +23,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('cerel', 'CerelController')->middleware('auth');
+Route::group(['prefix' => 'cerel', 'middleware' => 'auth'], function(){
+    Route::get('/', 'CerelController@index');
+    Route::get('/{id}', 'CerelController@create');
+    Route::post('/', 'CerelController@store');
+    Route::get('/comprovante/{id}', 'CerelController@show');
+});
+// Route::resource('cerel', 'CerelController')->middleware('auth');
 Route::resource('coords', 'CoordsController')->middleware('auth');
 
 Route::group(['prefix' => 'admin'], function(){
