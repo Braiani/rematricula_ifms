@@ -8,6 +8,7 @@ use App\DisciplinaCurso;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\Registro;
 
 
 class CerelController extends Controller
@@ -33,6 +34,9 @@ class CerelController extends Controller
      */
     public function create($id)
     {
+        if(count(Registro::where('id_alunos', '=', $id)) > 0){
+            return redirect('/cerel/registrado/' . $id);
+        }
         $aluno = Aluno::join('cursos', 'cursos.id', '=', 'alunos.id_curso')
                         ->select('alunos.nome', 'cursos.nome as curso', 'alunos.matricula', 'alunos.id', 'alunos.id_curso as curso_id')
                         ->where('alunos.id', '=', $id)->get();
@@ -57,9 +61,22 @@ class CerelController extends Controller
     {
         $this->validate(request(), [
             'idAluno' => 'required',
-            'disciplinas' => 'required'
+            'disciplinas' => 'required',
+            'semestre' => 'required',
+            'situacao' => 'required'
         ]);
-        //dd($request->all());
+        // dd(request('disciplinas'));
+        $disciplinas = request('disciplinas');
+        foreach($disciplinas as $disciplina){
+            Registro::create([
+                'id_disciplina_cursos' => $disciplina,
+                'id_alunos' => request('idAluno'),
+                'semestre' => request('semestre'),
+                'situacao' => request('situacao'),
+                'id_user' => auth()->user()->id,
+            ]);
+        }
+        
         Session::flash('sucesso', 'Registro salvo com sucesso');
         return Redirect::to('/cerel/comprovante/' . request('idAluno'));
     }
@@ -72,9 +89,13 @@ class CerelController extends Controller
      */
     public function show($id)
     {
-        $data = Aluno::find($id);
-        return PDF::loadView('cerel.comprovante', ['alunos' => $data])->stream();
-        //return view('cerel.comprovante', ['alunos' => $data]);
+        $aluno = Aluno::find($id);
+        $registros = Registro::join('disciplina_cursos', 'id_disciplina_cursos', '=', 'disciplina_cursos.id')
+                            ->select('disciplina_cursos.nome as disciplina')
+                            ->where('id_alunos', '=', $aluno->id)->get();
+
+        return PDF::loadView('cerel.comprovante', ['aluno' => $aluno, 'registros' => $registros])->stream();
+        //return view('cerel.comprovante', ['aluno' => $aluno, 'registros' => $registros]);
     }
 
     /**
@@ -85,7 +106,11 @@ class CerelController extends Controller
      */
     public function edit($id)
     {
-        return view('cerel.mostrar');
+        $aluno = Aluno::find($id);
+        $registros = Registro::join('disciplina_cursos', 'id_disciplina_cursos', '=', 'disciplina_cursos.id')
+                            ->select('disciplina_cursos.nome as disciplina')
+                            ->where('id_alunos', '=', $aluno->id)->get();   
+        return view('cerel.mostrar', ['aluno' => $aluno, 'registros' => $registros]);
     }
 
     /**
