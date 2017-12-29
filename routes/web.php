@@ -26,11 +26,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'cerel', 'middleware' => 'auth'], function(){
     Route::get('/', 'CerelController@index');
     Route::get('/{id}', 'CerelController@create');
+    Route::delete('/{id}', 'CerelController@destroy');
     Route::post('/', 'CerelController@store');
     Route::get('/comprovante/{id}', 'CerelController@show');
     Route::get('/registrado/{id}', 'CerelController@edit');
+    Route::get('/registrado/{id}/editar', 'CerelController@update');
+    Route::post('/registrado/{id}', 'CerelController@salvar_update');
 });
-// Route::resource('cerel', 'CerelController')->middleware('auth');
 Route::resource('coords', 'CoordsController')->middleware('auth');
 
 Route::group(['prefix' => 'admin'], function(){

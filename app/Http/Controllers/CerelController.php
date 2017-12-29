@@ -34,7 +34,7 @@ class CerelController extends Controller
      */
     public function create($id)
     {
-        if(count(Registro::where('id_alunos', '=', $id)) > 0){
+        if(count(Registro::where('id_alunos', '=', $id)->get()) > 0){
             return redirect('/cerel/registrado/' . $id);
         }
         $aluno = Aluno::join('cursos', 'cursos.id', '=', 'alunos.id_curso')
@@ -48,7 +48,8 @@ class CerelController extends Controller
                                 ['semestre', '=', $i]
                             ])->get();
         }
-        return view('cerel.registro', ['aluno' => $aluno, 'disciplinas' => $disciplinas]);
+        $registros = '';
+        return view('cerel.registro', ['aluno' => $aluno, 'disciplinas' => $disciplinas, 'registros' => $registros]);
     }
 
     /**
@@ -108,7 +109,7 @@ class CerelController extends Controller
     {
         $aluno = Aluno::find($id);
         $registros = Registro::join('disciplina_cursos', 'id_disciplina_cursos', '=', 'disciplina_cursos.id')
-                            ->select('disciplina_cursos.nome as disciplina')
+                            ->select('disciplina_cursos.nome as disciplina', 'registros.id as id')
                             ->where('id_alunos', '=', $aluno->id)->get();   
         return view('cerel.mostrar', ['aluno' => $aluno, 'registros' => $registros]);
     }
@@ -120,9 +121,49 @@ class CerelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $aluno = Aluno::join('cursos', 'cursos.id', '=', 'alunos.id_curso')
+                        ->select('alunos.nome', 'cursos.nome as curso', 'alunos.matricula', 'alunos.id', 'alunos.id_curso as curso_id')
+                        ->where('alunos.id', '=', $id)->get();
+
+        $contadorSemestre = DisciplinaCurso::where('id_cursos', '=', $aluno[0]->curso_id)->max('semestre');
+        for($i = 1; $i <= $contadorSemestre; $i++){
+            $disciplinas[$i] = DisciplinaCurso::where([
+                                ['id_cursos', '=',  $aluno[0]->curso_id],
+                                ['semestre', '=', $i]
+                            ])->get();
+        }
+        $registros = Registro::join('disciplina_cursos', 'id_disciplina_cursos', '=', 'disciplina_cursos.id')
+                            ->select('disciplina_cursos.nome as nomeDisciplina', 'disciplina_cursos.id as id_disciplinas', 'registros.situacao')
+                            ->where('id_alunos', '=', $aluno[0]->id)->get();
+        return view('cerel.alterar', ['aluno' => $aluno, 'disciplinas' => $disciplinas, 'registros' => $registros]);
+    }
+
+    public function salvar_update(Request $request){
+        $this->validate(request(), [
+            'idAluno' => 'required',
+            'disciplinas' => 'required',
+            'semestre' => 'required',
+            'situacao' => 'required'
+        ]);
+        // dd(request('disciplinas'));
+        $disciplinas = request('disciplinas');
+        foreach($disciplinas as $disciplina){
+            
+            if(Registro::where('id_disciplina_cursos', $disciplina)->count() == 0){
+                Registro::create([
+                    'id_disciplina_cursos' => $disciplina,
+                    'id_alunos' => request('idAluno'),
+                    'semestre' => request('semestre'),
+                    'situacao' => request('situacao'),
+                    'id_user' => auth()->user()->id,
+                ]);
+            }
+        }
+        
+        Session::flash('sucesso', 'Registro salvo com sucesso');
+        return Redirect::to('/cerel/comprovante/' . request('idAluno'));
     }
 
     /**
@@ -133,6 +174,14 @@ class CerelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $registro = Registro::find($id);
+        $aluno_id = $registro->id_alunos;
+        if($registro->user_id == auth()->user()->id || auth()->user()->perfil == 3){
+            $registro->delete();
+            Session::flash('sucesso', 'Registro removido com sucesso');
+            return redirect('/cerel/registrado/'. $aluno_id);
+        }
+        
+        return redirect('/cerel/registrado/'. $aluno_id)->withErrors('Você não tem permissão para remover o registro');
     }
 }

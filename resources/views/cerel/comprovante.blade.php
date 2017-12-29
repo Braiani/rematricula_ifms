@@ -64,25 +64,13 @@
             <h2>REGISTRO DE PRÉ-MATRÍCULA</h2>
         </center>
         <div class='first-paragraph'>
-            <p>O registro de intenção de matrícula do(a) estudante {{$alunos->nome}} foi realizado com sucesso, conforme informações abaixo:</p>
+            <p>O registro de intenção de matrícula do(a) estudante {{$aluno->nome}} foi realizado com sucesso, conforme informações abaixo:</p>
         </div>
         <div class="disciplinas">
             <ul>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                <li>Disciplinas selecionadas como intenção</li>
-                
+                @foreach ($registros as $registro)
+                <li>{{$registro->disciplina}}</li>
+                @endforeach
             </ul>
             
         </div>

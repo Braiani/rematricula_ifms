@@ -24,3 +24,28 @@ body{
 .title {
     font-size: 84px;
 }
+
+.flash-message {
+    top: 100px;
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+    animation: flash-message 12s forwards;
+}
+
+@keyframes flash-message {
+    0%   {opacity: 1;}
+    100% {opacity: 0; display:none;}
+}
+
+.fixed-message {
+    top: 200px;
+    position: fixed;
+    right: 20px;
+    z-index: 10;
+    opacity: 0.7;
+}
+.table{
+    margin-top: 15px;
+    background-color: white;
+}

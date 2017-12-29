@@ -15,7 +15,7 @@
 @include('layouts.errors')
 <div class="row">
     <div class="container-fluid">
-        <form action="{{ url('/cerel')}}" method="POST" clas="form-inline">
+        <form action="{{ url('/cerel/registrado/' . $aluno[0]->id)}}" method="POST" clas="form-inline">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="nomeAluno">Estudante:</label>
@@ -28,8 +28,8 @@
                     <label for="situacao">Situação do estudante:</label>
                     <select name='situacao' class='form-control select-situacao'>
                         <option></option>
-                        <option value="1" {{ old('situacao') == 1 ? 'selected': '' }}>Dependência</option>
-                        <option value="2" {{ old('situacao') == 2 ? 'selected': '' }}>Retido</option>
+                        <option value="1" {{ $registros[0]->situacao == 1 ? 'selected': '' }}>Dependência</option>
+                        <option value="2" {{ $registros[0]->situacao == 2 ? 'selected': '' }}>Retido</option>
                     </select>
                 </div>
             </div>
@@ -61,6 +61,13 @@
             </div>
         </form>
     </div>
+    <div class="alert alert-info fixed-message">
+        <p><b>Disciplinas já cadastradas:</b></p>
+        @foreach ($registros as $registro)
+            <p>{{$registro->nomeDisciplina}}</p>
+        @endforeach
+    </div>
+</div>
 @stop
 
 @section('js')

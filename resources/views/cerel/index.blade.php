@@ -24,7 +24,7 @@
                 @endforeach
             </select>
         </div>
-        <a class="btn btn-primary btn-lg" id="btnRegistro" href="javascrip:void(0);">Registrar</a>
+        <a class="btn btn-primary btn-lg" id="btnRegistro" target="_blank" href="javascrip:void(0);">Registrar</a>
     </div>
 </div>
 @stop
