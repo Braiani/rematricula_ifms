@@ -35,8 +35,9 @@ Route::group(['prefix' => 'cerel', 'middleware' => 'auth'], function(){
 });
 Route::resource('coords', 'CoordsController')->middleware('auth');
 
-Route::group(['prefix' => 'admin'], function(){
-    Route::resource('profile', 'ProfileController')->middleware('auth');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+    Route::get('perfil', 'ProfileController@index');
+    Route::post('perfil', 'ProfileController@store');
 });
 
 // Route::get('/cerel', 'HomeController@cerelIndex');

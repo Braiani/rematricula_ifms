@@ -121,13 +121,8 @@ return [
         ],
         'Administrativo',
         [
-            'text' => 'Profile',
-            'url'  => 'admin/profile',
-            'icon' => 'user',
-        ],
-        [
-            'text' => 'Change Password',
-            'url'  => 'admin/profile',
+            'text' => 'Trocar a senha',
+            'url'  => 'admin/perfil',
             'icon' => 'lock',
         ],
     ],
