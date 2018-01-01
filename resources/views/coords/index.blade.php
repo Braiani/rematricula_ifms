@@ -14,14 +14,15 @@
 @include('layouts.errors')
 @include('layouts.sucesso_session')
 <div class="container-fluid">
-    <div class="col-xs-12 col-sm-10 col-md-8">
+    <div class="col-sm-12 col-md-10 col-lg-9">
         <table class="table hover" id="tabela">
             <thead>
                 <tr>
-                    <th>Nome</th>
+                    <th>Estudante</th>
+                    <th>CR</th>
+                    <th>Curso</th>
                     <th>Situação</th>
                     <th>Semestre</th>
-                    <th>CR</th>
                     <th>Responável pelo cadastro</th>
                     <th>Ações</th>
                 </tr>
@@ -30,9 +31,10 @@
                 @foreach ($registros as $registro)
                     <tr>
                         <td>{{$registro->nome}}</td>
+                        <td>{{$registro->CR}}</td>
+                        <td>{{$registro->curso}}</td>
                         <td>{{($registro->situacao == 1) ? "Dependência" : "Retido" }}</td>
                         <td>{{$registro->semestre}}</td>
-                        <td>{{$registro->CR}}</td>
                         <td>{{$registro->usuario}}</td>
                         <td><a class="btn btn-primary" href="{{url('/coords/analisar/'.$registro->aluno_id)}}" target="_blank"> Ver</a></td>
                     </tr>
