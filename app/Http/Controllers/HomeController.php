@@ -29,25 +29,8 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function cerelIndex()
+    public function addUser()
     {
-        if(auth()->user()->perfil == 1 || auth()->user()->perfil == 3){
-            $alunos = ALuno::all();
-            return View('cerel.home', compact('alunos'));
-        }else{
-            return redirect('home');
-        }
-        
-    }
-
-    public function coordsIndex()
-    {
-        if(auth()->user()->perfil == 2 || auth()->user()->perfil == 3){
-            $alunos = ALuno::all();
-            return View('coords.home', compact('alunos'));
-        }else{
-            return redirect('home');
-        }
-        
+        return view('auth.register');
     }
 }

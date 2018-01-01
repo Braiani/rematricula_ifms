@@ -125,6 +125,11 @@ return [
             'url'  => 'admin/perfil',
             'icon' => 'lock',
         ],
+        [
+            'text' => 'Admicionar usuário',
+            'url'  => 'admin/adicionar',
+            'icon' => 'user',
+        ],
     ],
 
     /*

@@ -33,11 +33,18 @@ Route::group(['prefix' => 'cerel', 'middleware' => 'auth'], function(){
     Route::get('/registrado/{id}/editar', 'CerelController@update');
     Route::post('/registrado/{id}', 'CerelController@salvar_update');
 });
-Route::resource('coords', 'CoordsController')->middleware('auth');
+
+Route::group(['prefix' => 'coords', 'middleware' => 'auth'], function(){
+    Route::get('/', 'CoordsController@index');
+    Route::get('/analisar/{id}', 'CoordsController@update');
+    Route::get('/analisar/{id}/acepted', 'CoordsController@update_aceito');
+    Route::get('/analisar/{id}/declined', 'CoordsController@update_rejeitado');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('perfil', 'ProfileController@index');
     Route::post('perfil', 'ProfileController@store');
+    Route::get('adicionar', 'HomeController@addUser');
 });
 
 // Route::get('/cerel', 'HomeController@cerelIndex');
