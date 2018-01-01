@@ -18,7 +18,7 @@ class CreateAlunosTable extends Migration
             $table->string('nome');
             $table->string('matricula')->unique();
             $table->integer('id_curso')->unsigned();
-            $table->integer('ra');
+            $table->double('CR');
             $table->timestamps();
 
             $table->foreign('id_curso')->references('id')->on('cursos')->onDelete('cascade');
