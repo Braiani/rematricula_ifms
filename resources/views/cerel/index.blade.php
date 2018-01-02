@@ -36,7 +36,7 @@
             $('#aluno').on('change', function(){
                 //alert($(this).val());
                 if($(this).val() !== ""){
-                    $('#btnRegistro').attr('href', '/cerel/' + $(this).val());
+                    $('#btnRegistro').attr('href', 'cerel/' + $(this).val());
                 }else{                    
                     $('#btnRegistro').attr('href', 'javascrip:void(0);');
                 }
