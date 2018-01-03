@@ -36,7 +36,7 @@
                                 <tr>
                                     <td>{{$registro->disciplina}}</td>
                                     <td>
-                                        <form action="/cerel/{{$registro->id}}" class="form pull-right" method="POST">
+                                        <form action="{{url('/cerel/'.$registro->id)}}" class="form pull-right" method="POST">
                                             {{method_field('DELETE')}}
                                             {{csrf_field()}}
                                             <button class="btn btn-danger" type="submit">Apagar</button>

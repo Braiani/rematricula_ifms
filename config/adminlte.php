@@ -126,7 +126,7 @@ return [
             'icon' => 'lock',
         ],
         [
-            'text' => 'Admicionar usuário',
+            'text' => 'Adicionar usuário',
             'url'  => 'admin/adicionar',
             'icon' => 'user',
         ],
