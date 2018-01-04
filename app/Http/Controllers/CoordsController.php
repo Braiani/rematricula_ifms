@@ -88,24 +88,28 @@ class CoordsController extends Controller
     }
 
     public function update_aceito($id){
-        if(auth()->user()->perfil <> 2 || auth()->user()->perfil <> 2){
+        if(auth()->user()->perfil == 2 || auth()->user()->perfil == 3){
+            if(Registro::find($id)->update(['avaliacao' => 1])){
+                Session::flash('sucesso', 'Registro salvo com sucesso');
+                return back();
+            }
+        }else{
             return back()->withErrors('Você não tem permissão para essa ação!');
         }
-        if(Registro::find($id)->update(['avaliacao' => 1])){
-            Session::flash('sucesso', 'Registro salvo com sucesso');
-            return back();
-        }
+        
         return back()->withErrors('Ocorreu um erro ao tetar salvar o registro!');
     }
 
     public function update_rejeitado($id){
-        if(auth()->user()->perfil <> 2 || auth()->user()->perfil <> 2){
+        if(auth()->user()->perfil == 2 || auth()->user()->perfil == 3){
+            if(Registro::find($id)->update(['avaliacao' => 2])){
+                Session::flash('sucesso', 'Registro salvo com sucesso');
+                return back();
+            }
+        }else{
             return back()->withErrors('Você não tem permissão para essa ação!');
         }
-        if(Registro::find($id)->update(['avaliacao' => 2])){
-            Session::flash('sucesso', 'Registro salvo com sucesso');
-            return back();
-        }
+        
         return back()->withErrors('Ocorreu um erro ao tetar salvar o registro!');
     }
 

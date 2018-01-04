@@ -176,7 +176,7 @@ class CerelController extends Controller
     {
         $registro = Registro::find($id);
         $aluno_id = $registro->id_alunos;
-        if($registro->user_id == auth()->user()->id || auth()->user()->perfil == 3){
+        if($registro->id_user == auth()->user()->id || auth()->user()->perfil == 3){
             $registro->delete();
             Session::flash('sucesso', 'Registro removido com sucesso');
             return redirect('/cerel/registrado/'. $aluno_id);
