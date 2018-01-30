@@ -20,7 +20,7 @@ class CoordsController extends Controller
                             ->join('alunos', 'alunos.id', '=', 'registros.id_alunos')
                             ->join('cursos', 'alunos.id_curso', '=', 'cursos.id')
                             ->join('users', 'users.id', '=', 'registros.id_user')
-                            ->select('alunos.nome', 'registros.semestre', 'registros.situacao', 'users.nome as usuario',
+                            ->select('alunos.nome', 'alunos.matricula', 'registros.semestre', 'registros.situacao', 'users.nome as usuario',
                              'alunos.id as aluno_id', 'alunos.CR as CR', 'cursos.nome as curso')
                             ->groupBy('registros.id_alunos')->get();
         return view('coords.index')->with('registros', $registros);

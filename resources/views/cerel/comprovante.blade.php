@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> -->
         <title>Registro de pré-matricula</title>
         <style>
             body{
@@ -49,18 +49,18 @@
                 padding-left: 15px;
             }
             .rodape{
-                width: 100%;
+                /* width: 100%;*/
                 position: absolute;
                 bottom: 0;
             }
             .img-rodape{
-                width: 100% !important;
+                width: 100% ;
             }
         </style>
     </head>
     <body>
         <center>
-            <img class='img-header' src="{{asset('img/header.jpg') }}">
+            <img class='img-header' src="{{ public_path('/img/header.jpg') }}">
             <h2>REGISTRO DE PRÉ-MATRÍCULA</h2>
         </center>
         <div class='first-paragraph'>
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="rodape">
-            <img class="img-rodape" src="{{asset('img/footer.jpg') }}">
+            <img class="img-rodape" src="{{ public_path('img/footer.jpg') }}">
         </div>
     </body>
 </html>

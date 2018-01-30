@@ -96,7 +96,7 @@ class CerelController extends Controller
                             ->where('id_alunos', '=', $aluno->id)->get();
 
         return PDF::loadView('cerel.comprovante', ['aluno' => $aluno, 'registros' => $registros])->stream();
-        //return view('cerel.comprovante', ['aluno' => $aluno, 'registros' => $registros]);
+        // return view('cerel.comprovante', ['aluno' => $aluno, 'registros' => $registros]);
     }
 
     /**
@@ -150,8 +150,7 @@ class CerelController extends Controller
         // dd(request('disciplinas'));
         $disciplinas = request('disciplinas');
         foreach($disciplinas as $disciplina){
-            
-            if(Registro::where('id_disciplina_cursos', $disciplina)->count() == 0){
+            if(count(Registro::where([['id_disciplina_cursos', '=', $disciplina],['id_alunos', '=',  request('idAluno')]])->get()) == 0){
                 Registro::create([
                     'id_disciplina_cursos' => $disciplina,
                     'id_alunos' => request('idAluno'),
